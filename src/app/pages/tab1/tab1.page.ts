@@ -9,4 +9,8 @@ export class Tab1Page {
 
   constructor() {}
 
+  scan(){
+    console.log('hola')
+  }
+
 }
