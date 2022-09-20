@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+
 
 @Component({
   selector: 'app-tab1',
@@ -9,8 +11,15 @@ export class Tab1Page {
 
   constructor() {}
 
-  scan(){
+  async scan(){
     console.log('hola')
+
+    const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+
+    if (result.hasContent) {
+      console.log(result.content); // log the raw scanned content
+    }
+
   }
 
 }
