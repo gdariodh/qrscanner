@@ -1,24 +1,39 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
 })
-export class Tab1Page {
-  constructor(private alertCtrl: AlertController) {}
+export class Tab1Page implements AfterViewInit {
+  scanActive: boolean = false;
+
+  constructor(private alertCtrl: AlertController, private platform: Platform) {}
+
+  ngAfterViewInit() {
+    if (this.platform.is('capacitor')) {
+      BarcodeScanner.prepare();
+    }
+  }
 
   async scan() {
-   const allowed = this.checkPermisos();
+    if (this.platform.is('capacitor')) {
+      const allowed = await this.checkPermisos();
 
-   console.log({allowed})
+      if (allowed) {
+        this.scanActive = true;
 
-    const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+        const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
 
-    if (result.hasContent) {
-      console.log(result.content); // log the raw scanned content
+        if (result.hasContent) {
+          console.log(result.content); // log the raw scanned content
+          this.scanActive = false;
+        }
+      }
+    } else {
+      console.log('Corriendo en web');
     }
   }
 
