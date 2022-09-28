@@ -28,6 +28,8 @@ export class DataLocalService {
         console.log("geo:", registro)
         // Abrir el mapa
 
+        // TODO: Me quede en el minuto 45
+
 
 
       default:
