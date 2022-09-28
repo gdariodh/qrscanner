@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController, Platform } from '@ionic/angular';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector: 'app-tab1',
@@ -10,7 +11,7 @@ import { AlertController, Platform } from '@ionic/angular';
 export class Tab1Page implements AfterViewInit {
   scanActive: boolean = false;
 
-  constructor(private alertCtrl: AlertController, private platform: Platform) {}
+  constructor(private alertCtrl: AlertController, private platform: Platform,private dataLocalService: DataLocalService) {}
 
   ngAfterViewInit() {
     if (this.platform.is('capacitor')) {
@@ -29,6 +30,9 @@ export class Tab1Page implements AfterViewInit {
 
         if (result.hasContent) {
           console.log(result.content); // log the raw scanned content
+
+          this.dataLocalService.guardarRegistro(result.format, result.content)
+
           this.scanActive = false;
         }
       }
