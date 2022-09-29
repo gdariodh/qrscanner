@@ -22,9 +22,11 @@ export class Registro {
         this.icon = 'globe';
         break;
 
-      case 'geo':
+      case 'geo:':
         this.type = 'geo';
-        this.icon = 'map-outline'
+        this.icon = 'map-outline';
+        break;
+
 
       default:
         this.type = 'No reconocido';

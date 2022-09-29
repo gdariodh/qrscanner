@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { Registro } from '../models/registro.models';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { Registro } from '../models/registro.models';
 })
 export class DataLocalService {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   async guardarRegistro(format: string, content: string){
     const nuevoRegistro = new Registro(format, content);
@@ -18,6 +19,9 @@ export class DataLocalService {
   }
 
   abrirRegistro(registro: Registro){
+
+    this.navCtrl.navigateForward('/tabs/tab2')
+
     switch (registro.type) {
       case 'http':
         console.log("url:", registro)
@@ -29,6 +33,7 @@ export class DataLocalService {
         // Abrir el mapa
 
         // TODO: Me quede en el minuto 45
+        break;
 
 
 

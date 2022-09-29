@@ -38,6 +38,8 @@ export class Tab1Page implements AfterViewInit {
       }
     } else {
       console.log('Corriendo en web');
+
+      this.dataLocalService.guardarRegistro('http',"geo:40.7807769727703,-74.03857695380083")
     }
   }
 
