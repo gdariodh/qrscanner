@@ -21,7 +21,7 @@ const routes: Routes = [
               import('../tab2/tab2.module').then((m) => m.Tab2PageModule),
           },
           {
-            path: 'mapa',
+            path: 'mapa/:geo',
             loadChildren: () =>
               import('../map/map.module').then((m) => m.MapModule),
           },
