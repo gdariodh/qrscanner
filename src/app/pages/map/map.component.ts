@@ -40,6 +40,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     map.on('load', () => {
       map.resize();
+      new mapboxgl.Marker()
+                  .setLngLat([this.lng, this.lat])
+                  .addTo(map)
       // Insert the layer beneath any symbol layer.
       const layers = map.getStyle().layers;
       const labelLayerId = layers.find(
