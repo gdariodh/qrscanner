@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { NavController } from '@ionic/angular';
 import { Registro } from '../models/registro.models';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataLocalService {
-  constructor(private navCtrl: NavController) {}
+  constructor(private navCtrl: NavController, private iab: InAppBrowser) {}
 
   async guardarRegistro(format: string, content: string) {
     const nuevoRegistro = new Registro(format, content);
@@ -20,6 +22,8 @@ export class DataLocalService {
       case 'http':
         console.log('url:', registro);
         // TODO: Tarea 2 -- Abrir el registro en el navegador nativo del device
+          const browser = this.iab.create(registro.content);
+          browser.show()
         break;
 
       case 'geo':
